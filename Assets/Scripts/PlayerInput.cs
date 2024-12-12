@@ -6,9 +6,13 @@ public class PlayerInput : MonoBehaviour
 {
     public float walkSpeed;
     public float jumpImpulse;
-    //public float maxFallSpeed;
     public Transform groundCheckPoint;
     public LayerMask whatIsGround;
+    public float reboundAfterHitEnemy;
+    public float heightGameOver;
+    public bool gameOver;
+    public bool nextLevel;
+
 
     private Rigidbody2D body;
     private Vector2 movement;
@@ -24,6 +28,7 @@ public class PlayerInput : MonoBehaviour
         iAmOnTheGround = false;
         anim = GetComponent<Animator>();
         facingRight = true;
+        nextLevel = false;
     }
 
     void Update()
@@ -57,13 +62,7 @@ public class PlayerInput : MonoBehaviour
         if(jumpInput && iAmOnTheGround) {
             movement.y = jumpImpulse;
         }
-        /*
-        if(!iAmOnTheGround) {
-            if(movement.y < maxFallSpeed) {
-                movement.y = maxFallSpeed;
-            }
-        }
-        */
+        
         body.linearVelocity = movement;
     }
 
@@ -73,4 +72,12 @@ public class PlayerInput : MonoBehaviour
         scale.x *= (-1);
         transform.localScale = scale;
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+{
+    if (collision.gameObject.tag == "enemy")
+    {
+        Destroy(collision.gameObject);
+    }
+}
 }
