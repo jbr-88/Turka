@@ -1400,7 +1400,7 @@ GameObject:
   - component: {fileID: 796231594}
   m_Layer: 0
   m_Name: Ant
-  m_TagString: Player
+  m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1488,6 +1488,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocity: 3
+  body: {fileID: 0}
 --- !u!50 &796231595
 Rigidbody2D:
   serializedVersion: 5
