@@ -12,6 +12,7 @@ public class PlayerInput : MonoBehaviour
     public float heightGameOver;
     public bool gameOver;
     public bool nextLevel;
+    public ChangeScene scene;
 
 
     private Rigidbody2D body;
@@ -31,6 +32,7 @@ public class PlayerInput : MonoBehaviour
         nextLevel = false;
     }
 
+    [System.Obsolete]
     void Update()
     {
         xInput = Input.GetAxis("Horizontal");
@@ -51,6 +53,13 @@ public class PlayerInput : MonoBehaviour
             iAmOnTheGround = true;
         }else {
             iAmOnTheGround = false;
+        }
+
+        if(gameObject.transform.position.y < heightGameOver) {
+            gameOver = true;
+            body.constraints = RigidbodyConstraints2D.FreezeAll;
+            scene = FindObjectOfType<ChangeScene>();
+            scene.LoadScene("Level1");
         }
     }
 
@@ -73,11 +82,24 @@ public class PlayerInput : MonoBehaviour
         transform.localScale = scale;
     }
 
+    [System.Obsolete]
     private void OnCollisionEnter2D(Collision2D collision)
-{
-    if (collision.gameObject.tag == "enemy")
     {
-        Destroy(collision.gameObject);
+        if (collision.gameObject.tag == "enemy")
+        {
+            //Destroy(collision.gameObject);
+            //gameOver = true;
+            //body.constraints = RigidbodyConstraints2D.FreezeAll;
+            //scene = FindObjectOfType<ChangeScene>();
+            //scene.LoadScene("Level1");
+        }
+
+        if (collision.gameObject.tag == "nextLevel")
+        {
+            nextLevel = true;
+            body.constraints = RigidbodyConstraints2D.FreezeAll;
+            scene = FindObjectOfType<ChangeScene>();
+            scene.LoadScene("Level2");
+        }
     }
-}
 }
