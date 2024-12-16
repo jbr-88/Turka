@@ -5,7 +5,6 @@ using UnityEngine;
 public class AntLogic : MonoBehaviour
 {
     public float velocity;
-
     public Rigidbody2D body;
 
     

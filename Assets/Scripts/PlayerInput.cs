@@ -85,15 +85,6 @@ public class PlayerInput : MonoBehaviour
     [System.Obsolete]
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "enemy")
-        {
-            //Destroy(collision.gameObject);
-            //gameOver = true;
-            //body.constraints = RigidbodyConstraints2D.FreezeAll;
-            //scene = FindObjectOfType<ChangeScene>();
-            //scene.LoadScene("Level1");
-        }
-
         if (collision.gameObject.tag == "nextLevel")
         {
             nextLevel = true;
