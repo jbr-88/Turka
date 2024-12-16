@@ -92,5 +92,13 @@ public class PlayerInput : MonoBehaviour
             scene = FindObjectOfType<ChangeScene>();
             scene.LoadScene("Level2");
         }
+
+        if (collision.collider.gameObject.tag == "enemy")
+        {
+            gameOver = true;
+            body.constraints = RigidbodyConstraints2D.FreezeAll;
+            scene = FindObjectOfType<ChangeScene>();
+            scene.LoadScene("Level1");
+        }
     }
 }
