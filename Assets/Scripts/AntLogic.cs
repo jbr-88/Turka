@@ -5,7 +5,11 @@ using UnityEngine;
 public class AntLogic : MonoBehaviour
 {
     public float velocity;
-    public Rigidbody2D body;
+    public Transform pointA;
+    public Transform pointB;
+    
+    private Rigidbody2D body;
+    private Transform target;
 
     
     
@@ -14,14 +18,31 @@ public class AntLogic : MonoBehaviour
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
+        target = pointA;
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        body.linearVelocity = new Vector2(-velocity, body.linearVelocityY);
+        Vector2 direction = (target.position - transform.position).normalized;
+        body.linearVelocity = direction * velocity;
+        
+         if (Vector3.Distance(transform.position, target.position) < 0.5f)
+        {
+            if (target == pointA)
+            {
+                target = pointB;
+                Flip(); // Girar el sprite
+            }
+            else
+            {
+                target = pointA;
+                Flip(); // Girar el sprite
+            }
+        }
     }
 
+    /*
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.tag == "invisibleWall") {
@@ -29,9 +50,11 @@ public class AntLogic : MonoBehaviour
             Flip();
         }
     }
+    */
 
     void Flip()
     {
+        Debug.Log("Girando sprite");
         Vector3 scale = transform.localScale;
         scale.x *= (-1);
         transform.localScale = scale;
