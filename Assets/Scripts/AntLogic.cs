@@ -42,16 +42,6 @@ public class AntLogic : MonoBehaviour
         }
     }
 
-    /*
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.tag == "invisibleWall") {
-            velocity *= (-1);
-            Flip();
-        }
-    }
-    */
-
     void Flip()
     {
         Debug.Log("Girando sprite");
