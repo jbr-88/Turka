@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEditor.Tilemaps;
+using UnityEngine.SceneManagement;
 
 public class PlayerInput : MonoBehaviour
 {
@@ -8,7 +9,6 @@ public class PlayerInput : MonoBehaviour
     public float jumpImpulse;
     public Transform groundCheckPoint;
     public LayerMask whatIsGround;
-    public float reboundAfterHitEnemy;
     public float heightGameOver;
     public bool gameOver;
     public bool nextLevel;
@@ -58,8 +58,7 @@ public class PlayerInput : MonoBehaviour
         if(gameObject.transform.position.y < heightGameOver) {
             gameOver = true;
             body.constraints = RigidbodyConstraints2D.FreezeAll;
-            scene = FindObjectOfType<ChangeScene>();
-            scene.LoadScene("Level1");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 
@@ -97,8 +96,7 @@ public class PlayerInput : MonoBehaviour
         {
             gameOver = true;
             body.constraints = RigidbodyConstraints2D.FreezeAll;
-            scene = FindObjectOfType<ChangeScene>();
-            scene.LoadScene("Level1");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 }
