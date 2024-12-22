@@ -27,7 +27,7 @@ public class CatLogic : MonoBehaviour
         Vector2 direction = (target.position - transform.position).normalized;
         body.linearVelocity = direction * velocity;
         
-         if (Vector3.Distance(transform.position, target.position) < 0.5f)
+         if (Vector3.Distance(transform.position, target.position) < 0.6f)
         {
             if (target == pointA)
             {

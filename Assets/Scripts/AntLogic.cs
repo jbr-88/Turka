@@ -44,7 +44,6 @@ public class AntLogic : MonoBehaviour
 
     void Flip()
     {
-        Debug.Log("Girando sprite");
         Vector3 scale = transform.localScale;
         scale.x *= (-1);
         transform.localScale = scale;
