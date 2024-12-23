@@ -199,5 +199,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocity: 5
+  jumpForce: 60
+  groundCheckPoint: {fileID: 0}
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 0
   pointA: {fileID: 0}
   pointB: {fileID: 0}

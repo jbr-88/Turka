@@ -5,12 +5,16 @@ using UnityEngine;
 public class CatLogic : MonoBehaviour
 {
     public float velocity;
+    public float jumpForce;
+    public Transform groundCheckPoint;
+    public LayerMask whatIsGround;
     public Transform pointA;
     public Transform pointB;
     
     private Rigidbody2D body;
     private Transform target;
-
+    private float jumpTimer = 0f; // Temporizador para el salto
+    private float jumpInterval = 2f; // Intervalo entre saltos
     
     
     
@@ -40,13 +44,30 @@ public class CatLogic : MonoBehaviour
                 Flip(); // Girar el sprite
             }
         }
+
+        jumpTimer += Time.fixedDeltaTime;
+        if (jumpTimer >= jumpInterval && IsGrounded())
+        {
+            Jump();
+            jumpTimer = 0f;
+        }
     }
 
     void Flip()
     {
-        Debug.Log("Girando sprite");
         Vector3 scale = transform.localScale;
         scale.x *= (-1);
         transform.localScale = scale;
+    }
+
+    bool IsGrounded()
+    {
+        // Comprueba si hay contacto con el suelo mediante un círculo
+        return Physics2D.OverlapCircle(groundCheckPoint.position, 0.1f, whatIsGround);
+    }
+
+    void Jump()
+    {
+        body.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
     }
 }
