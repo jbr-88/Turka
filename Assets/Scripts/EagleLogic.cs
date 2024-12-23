@@ -24,29 +24,12 @@ public class EagleLogic : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Vector2 direction = (target.position - transform.position).normalized;
+        Vector2 direction = new Vector2(0, target.position.y - transform.position.y).normalized;
         body.linearVelocity = direction * velocity;
         
-         if (Vector3.Distance(transform.position, target.position) < 0.5f)
+        if (Mathf.Abs(transform.position.y - target.position.y) < 0.5f)
         {
-            if (target == pointA)
-            {
-                target = pointB;
-                Flip(); // Girar el sprite
-            }
-            else
-            {
-                target = pointA;
-                Flip(); // Girar el sprite
-            }
+            target = (target == pointA) ? pointB : pointA;
         }
-    }
-
-    void Flip()
-    {
-        Debug.Log("Girando sprite");
-        Vector3 scale = transform.localScale;
-        scale.x *= (-1);
-        transform.localScale = scale;
     }
 }
