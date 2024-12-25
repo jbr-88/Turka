@@ -22,6 +22,7 @@ public class PlayerInput : MonoBehaviour
     private bool iAmOnTheGround;
     private bool facingRight;
     private Animator anim;
+    private StoneLogic heldStone;
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
@@ -60,6 +61,12 @@ public class PlayerInput : MonoBehaviour
             body.constraints = RigidbodyConstraints2D.FreezeAll;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
+
+         if (Input.GetKeyDown(KeyCode.D) && heldStone != null)
+        {
+            heldStone.Throw();
+            heldStone = null; // Liberar referencia
+        }
     }
 
     void FixedUpdate()
@@ -97,6 +104,15 @@ public class PlayerInput : MonoBehaviour
             gameOver = true;
             body.constraints = RigidbodyConstraints2D.FreezeAll;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        // Detecta si el jugador puede recoger la piedra
+        if (collision.CompareTag("ThrowableStone") && Input.GetKeyDown(KeyCode.X))
+        {
+            heldStone = collision.GetComponent<StoneLogic>();
         }
     }
 }
