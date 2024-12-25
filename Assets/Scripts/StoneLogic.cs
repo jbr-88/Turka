@@ -33,6 +33,17 @@ public class StoneLogic : MonoBehaviour
         {
             Debug.Log("Piedra disponible para recoger");
         }
+
+
+        if (collision.gameObject.CompareTag("enemy"))
+        {
+            Debug.Log("Piedra impactó a un enemigo, destruyendo...");
+            Destroy(gameObject); // Destruir la piedra al impactar con un enemigo
+        }
+        else
+        {
+            Debug.Log("La piedra impactó con un objeto que no es un enemigo.");
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -85,14 +96,18 @@ public class StoneLogic : MonoBehaviour
         Debug.Log("Piedra destruida automáticamente");
         Destroy(gameObject);
     }
-
+/*
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("enemy"))
         {
-            Debug.Log("Piedra impactó a un enemigo");
-            // Aquí puedes añadir lógica adicional, como reducir la vida del enemigo
+            Debug.Log("Piedra impactó a un enemigo, destruyendo...");
             Destroy(gameObject); // Destruir la piedra al impactar con un enemigo
         }
+        else
+        {
+            Debug.Log("La piedra impactó con un objeto que no es un enemigo.");
+        }
     }
+*/
 }
