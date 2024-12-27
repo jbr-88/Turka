@@ -35,15 +35,37 @@ public class StoneLogic : MonoBehaviour
         }
 
 
-        if (collision.gameObject.CompareTag("enemy"))
+        Debug.Log($"La piedra colisionó con: {collision.gameObject.name}");
+
+        // Verifica si el objeto tiene un script específico
+        var antEnemy = collision.gameObject.GetComponent<AntLogic>();
+        var catEnemy = collision.gameObject.GetComponent<CatLogic>();
+        var eagleEnemy = collision.gameObject.GetComponent<EagleLogic>();
+
+        if (antEnemy != null)
         {
-            Debug.Log("Piedra impactó a un enemigo, destruyendo...");
-            Destroy(gameObject); // Destruir la piedra al impactar con un enemigo
+            antEnemy.TakeDamage(1); // Aplica 1 punto de daño
+            Destroy(gameObject); // Destruye la piedra después del impacto
+            return;
+        }else if (catEnemy != null) {
+            catEnemy.TakeDamage(1); // Aplica 1 punto de daño
+            Destroy(gameObject); // Destruye la piedra después del impacto
+            return;
+        }else if (eagleEnemy != null) {
+            eagleEnemy.TakeDamage(1); // Aplica 1 punto de daño
+            Destroy(gameObject); // Destruye la piedra después del impacto
+            return;
         }
-        else
+
+        var dogEnemy = collision.gameObject.GetComponent<DogLogic>();
+        if (dogEnemy != null)
         {
-            Debug.Log("La piedra impactó con un objeto que no es un enemigo.");
+            dogEnemy.TakeDamage(1); // Aplica 1 punto de daño
+            Destroy(gameObject); // Destruye la piedra después del impacto
+            return;
         }
+        
+        Debug.Log("La piedra impactó con un objeto que no es un enemigo.");
     }
 
     private void OnTriggerStay2D(Collider2D collision)

@@ -8,6 +8,7 @@ TagManager:
   - enemy
   - nextLevel
   - ThrowableStone
+  - finalBoss
   layers:
   - Default
   - TransparentFX

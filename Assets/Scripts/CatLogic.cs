@@ -10,6 +10,7 @@ public class CatLogic : MonoBehaviour
     public LayerMask whatIsGround;
     public Transform pointA;
     public Transform pointB;
+    public int health = 1; // Número de impactos necesarios para destruir (1 por defecto)
     
     private Rigidbody2D body;
     private Transform target;
@@ -69,5 +70,17 @@ public class CatLogic : MonoBehaviour
     void Jump()
     {
         body.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+    }
+
+    public void TakeDamage(int damage)
+    {
+        health -= damage; // Reduce la vida
+        Debug.Log($"{gameObject.name} recibió daño. Vida restante: {health}");
+
+        if (health <= 0)
+        {
+            Destroy(gameObject); // Destruye el enemigo si su vida llega a 0
+            Debug.Log($"{gameObject.name} destruido");
+        }
     }
 }

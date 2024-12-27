@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8881036174629041149}
   - component: {fileID: 6130836723836031894}
   - component: {fileID: 696510158712646943}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Ant
   m_TagString: enemy
   m_Icon: {fileID: 0}
@@ -121,7 +121,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -152,7 +152,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -179,6 +179,7 @@ MonoBehaviour:
   velocity: 3
   pointA: {fileID: 0}
   pointB: {fileID: 0}
+  health: 1
 --- !u!95 &696510158712646943
 Animator:
   serializedVersion: 7

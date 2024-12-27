@@ -99,12 +99,7 @@ public class PlayerInput : MonoBehaviour
             scene.LoadScene("Level2");
         }
 
-        if (collision.collider.gameObject.tag == "enemy")
-        {
-            gameOver = true;
-            body.constraints = RigidbodyConstraints2D.FreezeAll;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
+        
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -113,6 +108,14 @@ public class PlayerInput : MonoBehaviour
         if (collision.CompareTag("ThrowableStone") && Input.GetKeyDown(KeyCode.X))
         {
             heldStone = collision.GetComponent<StoneLogic>();
+        }
+
+        if (collision.CompareTag("enemy"))
+        {
+            Debug.Log("El jugador fue impactado por un enemigo.");
+            gameOver = true;
+            body.constraints = RigidbodyConstraints2D.FreezeAll;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 }

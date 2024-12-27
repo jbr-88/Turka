@@ -7,6 +7,7 @@ public class AntLogic : MonoBehaviour
     public float velocity;
     public Transform pointA;
     public Transform pointB;
+    public int health = 1; // Número de impactos necesarios para destruir (1 por defecto)
     
     private Rigidbody2D body;
     private Transform target;
@@ -47,5 +48,17 @@ public class AntLogic : MonoBehaviour
         Vector3 scale = transform.localScale;
         scale.x *= (-1);
         transform.localScale = scale;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        health -= damage; // Reduce la vida
+        Debug.Log($"{gameObject.name} recibió daño. Vida restante: {health}");
+
+        if (health <= 0)
+        {
+            Destroy(gameObject); // Destruye el enemigo si su vida llega a 0
+            Debug.Log($"{gameObject.name} destruido");
+        }
     }
 }
