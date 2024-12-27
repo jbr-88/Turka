@@ -22519,6 +22519,10 @@ PrefabInstance:
       propertyPath: pointB
       value: 
       objectReference: {fileID: 552496631}
+    - target: {fileID: 8881036174629041149, guid: 61b924b8f1294e24486908c70067966d, type: 3}
+      propertyPath: m_Constraints
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -95,8 +95,8 @@ public class PlayerInput : MonoBehaviour
         {
             nextLevel = true;
             body.constraints = RigidbodyConstraints2D.FreezeAll;
-            scene = FindObjectOfType<ChangeScene>();
-            scene.LoadScene("Level2");
+            int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+            SceneManager.LoadScene(currentSceneIndex + 1);
         }
 
         
