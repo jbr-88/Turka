@@ -110,7 +110,7 @@ public class PlayerInput : MonoBehaviour
             heldStone = collision.GetComponent<StoneLogic>();
         }
 
-        if (collision.CompareTag("enemy"))
+        if (collision.CompareTag("enemy") || collision.CompareTag("finalBoss"))
         {
             Debug.Log("El jugador fue impactado por un enemigo.");
             gameOver = true;

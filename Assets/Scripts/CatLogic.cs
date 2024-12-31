@@ -29,23 +29,18 @@ public class CatLogic : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        // Movimiento
         Vector2 direction = (target.position - transform.position).normalized;
-        body.linearVelocity = direction * velocity;
-        
-         if (Vector3.Distance(transform.position, target.position) < 0.6f)
+        body.linearVelocity = new Vector2(direction.x * velocity, body.linearVelocityY); // Mantén la velocidad vertical
+
+        // Cambiar de dirección al alcanzar un objetivo
+        if (Vector3.Distance(transform.position, target.position) < 0.6f)
         {
-            if (target == pointA)
-            {
-                target = pointB;
-                Flip(); // Girar el sprite
-            }
-            else
-            {
-                target = pointA;
-                Flip(); // Girar el sprite
-            }
+            target = (target == pointA) ? pointB : pointA;
+            Flip();
         }
 
+        // Salto
         jumpTimer += Time.fixedDeltaTime;
         if (jumpTimer >= jumpInterval && IsGrounded())
         {
@@ -53,6 +48,8 @@ public class CatLogic : MonoBehaviour
             jumpTimer = 0f;
         }
     }
+
+
 
     void Flip()
     {
@@ -63,14 +60,18 @@ public class CatLogic : MonoBehaviour
 
     bool IsGrounded()
     {
-        // Comprueba si hay contacto con el suelo mediante un círculo
-        return Physics2D.OverlapCircle(groundCheckPoint.position, 0.1f, whatIsGround);
+        // Dibuja un círculo para comprobar si el enemigo está en el suelo
+        bool grounded = Physics2D.OverlapCircle(groundCheckPoint.position, 1f, whatIsGround);
+        Debug.Log($"IsGrounded: {grounded}");
+        return grounded;
     }
 
     void Jump()
     {
-        body.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        body.linearVelocity = new Vector2(body.linearVelocityX, jumpForce); // Aplica solo la fuerza vertical
+        Debug.Log($"Jump! Velocity: {body.linearVelocity}");
     }
+
 
     public void TakeDamage(int damage)
     {

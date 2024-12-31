@@ -18,12 +18,9 @@ public class HitOnEnemyLogic : MonoBehaviour
             }else if (catLogic != null)
             {
                 catLogic.TakeDamage(1); // Resta 1 de vida al enemigo
-            }else if (eagleLogic != null)
+            }else
             {
                 eagleLogic.TakeDamage(1); // Resta 1 de vida al enemigo
-            }else if (dogLogic != null)
-            {
-                dogLogic.TakeDamage(1); // Resta 1 de vida al enemigo
             }
         }
     }
