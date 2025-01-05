@@ -8,16 +8,12 @@ public class HitOnEnemyLogic : MonoBehaviour
         {
             // Obtener el script del enemigo y restarle vida
             AntLogic antLogic = collision.GetComponent<AntLogic>();
-            CatLogic catLogic = collision.GetComponent<CatLogic>();
             EagleLogic eagleLogic = collision.GetComponent<EagleLogic>();
             DogLogic dogLogic = collision.GetComponent<DogLogic>();
 
             if (antLogic != null)
             {
                 antLogic.TakeDamage(1); // Resta 1 de vida al enemigo
-            }else if (catLogic != null)
-            {
-                catLogic.TakeDamage(1); // Resta 1 de vida al enemigo
             }else
             {
                 eagleLogic.TakeDamage(1); // Resta 1 de vida al enemigo

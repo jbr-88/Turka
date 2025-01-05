@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -21,8 +22,14 @@ public class LevelGenerator : MonoBehaviour
 
     void Start()
     {
-        GenerateLevel();
+        StartCoroutine(GenerateLevelCoroutine());
     }
+
+    IEnumerator GenerateLevelCoroutine()
+{
+    yield return null; // Esperar un frame para asegurar que el Tilemap se actualiza completamente
+    GenerateLevel();
+}
 
     void GenerateLevel()
     {
@@ -71,56 +78,70 @@ public class LevelGenerator : MonoBehaviour
         return newPosition;
     }
 
-    void GenerateEnemyOnTilemap(GameObject platform)
+void GenerateEnemyOnTilemap(GameObject platform)
+{
+    Tilemap tilemap = platform.GetComponent<Tilemap>();
+    if (tilemap != null)
     {
-        Tilemap tilemap = platform.GetComponent<Tilemap>();
-        if (tilemap != null)
-        {
-            // Obtener los límites del Tilemap
-            BoundsInt bounds = tilemap.cellBounds;
-            Debug.Log($"Platform bounds size: {bounds.size.x}");
+        // Forzar la compresión de los bounds del Tilemap
+        tilemap.CompressBounds();
 
-            float platformWidth = Mathf.Max(bounds.size.x, 5f); // Mínimo ancho de 5 unidades
-            Vector3 platformPosition = platform.transform.position;
+        // Obtener el tamaño del Tilemap y la posición en el mundo
+        BoundsInt bounds = tilemap.cellBounds;
+        Vector3 platformPosition = platform.transform.position;
+        float tileHeight = tilemap.cellSize.y;
 
-            // Generar enemigo terrestre
-            float randomX = Random.Range(-platformWidth / 2f, platformWidth / 2f);
-            Vector3 enemyPosition = platformPosition + new Vector3(randomX, 1f, 0);
-            Instantiate(enemyGroundPrefab, enemyPosition, Quaternion.identity);
+        // Depuración temporal
+        Debug.Log($"Platform Position: {platformPosition}");
+        Debug.Log($"Tilemap Bounds: Position: {bounds.position}, Size: {bounds.size}");
+        Debug.Log($"Tile Height: {tileHeight}");
 
-            // Generar enemigo aéreo
-            float randomY = Random.Range(2f, 4f); // Altura relativa
-            Vector3 airEnemyPosition = platformPosition + new Vector3(randomX, randomY, 0);
-            Instantiate(enemyAirPrefab, airEnemyPosition, Quaternion.identity);
-        }
-        else
-        {
-            Debug.LogWarning("Platform does not have a Tilemap!");
-        }
+        // Calcular el punto más alto del Tilemap
+        float topY = platformPosition.y + bounds.max.y * tileHeight;
+
+        // Calcular límites horizontales de la plataforma
+        float platformWidth = bounds.size.x * tilemap.cellSize.x;
+
+        // Generar enemigo terrestre
+        float randomXGround = Random.Range(-platformWidth / 2f + 1f, platformWidth / 2f - 1f);
+        Vector3 groundEnemyPosition = new Vector3(randomXGround + platformPosition.x, topY, 0);
+        Debug.Log($"Ground Enemy Position: {groundEnemyPosition}");
+        Instantiate(enemyGroundPrefab, groundEnemyPosition, Quaternion.identity);
+
+        // Generar enemigo aéreo
+        float randomXAir = Random.Range(-platformWidth / 2f + 1f, platformWidth / 2f - 1f);
+        float randomYAir = Random.Range(2f, 4f);
+        Vector3 airEnemyPosition = new Vector3(randomXAir + platformPosition.x, topY + randomYAir, 0);
+        Instantiate(enemyAirPrefab, airEnemyPosition, Quaternion.identity);
     }
+}
 
-    void GenerateStoneOnTilemap(GameObject platform)
+
+
+void GenerateStoneOnTilemap(GameObject platform)
+{
+    Tilemap tilemap = platform.GetComponent<Tilemap>();
+    if (tilemap != null)
     {
-        Tilemap tilemap = platform.GetComponent<Tilemap>();
-        if (tilemap != null)
-        {
-            // Obtener los límites del Tilemap
-            BoundsInt bounds = tilemap.cellBounds;
-            Debug.Log($"Platform bounds size: {bounds.size.x}");
-    
-            float platformWidth = Mathf.Max(bounds.size.x, 5f); // Mínimo ancho de 5 unidades
-            Vector3 platformPosition = platform.transform.position;
-    
-            // Generar piedra
-            float randomX = Random.Range(-platformWidth / 2f, platformWidth / 2f);
-            Vector3 stonePosition = platformPosition + new Vector3(randomX, 0.5f, 0);
-            Instantiate(stonePrefab, stonePosition, Quaternion.identity);
-        }
-        else
-        {
-            Debug.LogWarning("Platform does not have a Tilemap!");
-        }
+        // Obtener el tamaño del Tilemap y la posición en el mundo
+        BoundsInt bounds = tilemap.cellBounds;
+        Vector3 platformPosition = platform.transform.position;
+        float tileHeight = tilemap.cellSize.y;
+
+        // Calcular el punto más alto del Tilemap
+        float topY = platformPosition.y + tileHeight / 2f;
+
+        // Calcular límites horizontales de la plataforma
+        float platformWidth = 5f * tilemap.cellSize.x;
+
+        // Generar piedra en una posición aleatoria
+        float randomXStone = Random.Range(-platformWidth / 2f + 1f, platformWidth / 2f - 1f); // Ajustar márgenes
+        Vector3 stonePosition = new Vector3(randomXStone + platformPosition.x, topY + 0.5f, 0); // Directamente sobre la plataforma
+        Instantiate(stonePrefab, stonePosition, Quaternion.identity);
     }
+}
+
+    
 
     void SpawnPlayerOnTilemap(GameObject platform)
     {

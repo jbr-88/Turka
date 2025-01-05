@@ -39,17 +39,12 @@ public class StoneLogic : MonoBehaviour
 
         // Verifica si el objeto tiene un script específico
         var antEnemy = collision.gameObject.GetComponent<AntLogic>();
-        var catEnemy = collision.gameObject.GetComponent<CatLogic>();
         var eagleEnemy = collision.gameObject.GetComponent<EagleLogic>();
         var dogEnemy = collision.gameObject.GetComponent<DogLogic>();
 
         if (antEnemy != null)
         {
             antEnemy.TakeDamage(1); // Aplica 1 punto de daño
-            Destroy(gameObject); // Destruye la piedra después del impacto
-            return;
-        }else if (catEnemy != null) {
-            catEnemy.TakeDamage(1); // Aplica 1 punto de daño
             Destroy(gameObject); // Destruye la piedra después del impacto
             return;
         }else if (eagleEnemy != null) {
