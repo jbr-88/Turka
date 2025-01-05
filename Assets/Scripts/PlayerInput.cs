@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEditor.Tilemaps;
 using UnityEngine.SceneManagement;
+using System;
 
 public class PlayerInput : MonoBehaviour
 {
@@ -118,4 +119,10 @@ public class PlayerInput : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
+
+        public void Rebound(float reboundForce)
+{
+    Rigidbody2D body = GetComponent<Rigidbody2D>();
+    body.AddForce(Vector2.up * reboundForce, ForceMode2D.Impulse);
+}
 }
