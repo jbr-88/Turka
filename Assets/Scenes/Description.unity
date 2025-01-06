@@ -965,8 +965,9 @@ MonoBehaviour:
     mascota, una simp\xE0tica gosseta anomenada Turka, ha estat segrestada per un
     malvat gos. La teva missi\xF3 \xE9s superar els 2 nivells del joc i derrotar
     al segrestador per tal d'alliberar-la.\n\nPodr\xE0s moure al personatge amb les
-    fletxes, saltar amb SPACE i llen\xE7ar pedres amb la lletra D, un cop les hagis
-    agafat al llarg del nivell 2.\n\n\xC0nims! Turka espera el seu rescat!"
+    fletxes, saltar amb SPACE, agafar pedres amb la lletra C i llen\xE7ar-les amb
+    la lletra X, un cop les hagis agafat al llarg del nivell 2.\n\n\xC0nims, Turka
+    espera el seu rescat!"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

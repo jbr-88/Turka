@@ -100,6 +100,21 @@ public class PlayerInput : MonoBehaviour
             SceneManager.LoadScene(currentSceneIndex + 1);
         }
 
+if (collision.gameObject.tag == "finalBoss")
+        {
+            Debug.Log("El jugador fue impactado por un enemigo.");
+            gameOver = true;
+            body.constraints = RigidbodyConstraints2D.FreezeAll;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
+        if (collision.gameObject.tag == "turka")
+        {
+            nextLevel = true;
+            body.constraints = RigidbodyConstraints2D.FreezeAll;
+            int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+            SceneManager.LoadScene(currentSceneIndex + 1);
+        }
         
     }
 
@@ -125,4 +140,5 @@ public class PlayerInput : MonoBehaviour
     Rigidbody2D body = GetComponent<Rigidbody2D>();
     body.AddForce(Vector2.up * reboundForce, ForceMode2D.Impulse);
 }
+
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DogLogic : MonoBehaviour
 {
-    public float velocity = 2f;
+    public float velocity;
     public Transform pointA;
     public Transform pointB;
     public int health = 3;
@@ -14,7 +14,7 @@ public class DogLogic : MonoBehaviour
     private Rigidbody2D body;
     private Transform target;
     private float jumpTimer = 0f;
-    private float jumpInterval = 3f;
+    private float jumpInterval = 2f;
 
     void Start()
     {
@@ -24,12 +24,12 @@ public class DogLogic : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Movimiento del enemigo (mantener velocidad constante)
-        float moveDirection = (target.position.x > transform.position.x) ? 1f : -1f;
+        // Movimiento del enemigo con velocidad constante
+        float moveDirection = Mathf.Sign(target.position.x - transform.position.x);
         body.linearVelocity = new Vector2(moveDirection * velocity, body.linearVelocityY);
 
-        // Cambiar de dirección al llegar a un punto (solo verifica la distancia en el eje X)
-        if (Mathf.Abs(transform.position.x - target.position.x) < 0.5f)
+        // Cambiar de dirección al llegar a un punto (umbral aumentado a 0.7f)
+        if (Mathf.Abs(transform.position.x - target.position.x) < 0.7f)
         {
             target = (target == pointA) ? pointB : pointA;
             Flip();

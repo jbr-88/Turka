@@ -9,6 +9,7 @@ TagManager:
   - nextLevel
   - ThrowableStone
   - finalBoss
+  - turka
   layers:
   - Default
   - TransparentFX
