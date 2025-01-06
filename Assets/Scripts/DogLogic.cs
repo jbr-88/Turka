@@ -24,12 +24,12 @@ public class DogLogic : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Movimiento del enemigo
-        Vector2 direction = (target.position - transform.position).normalized;
-        body.linearVelocity = new Vector2(direction.x * velocity, body.linearVelocityY);
+        // Movimiento del enemigo (mantener velocidad constante)
+        float moveDirection = (target.position.x > transform.position.x) ? 1f : -1f;
+        body.linearVelocity = new Vector2(moveDirection * velocity, body.linearVelocityY);
 
-        // Cambiar de dirección al llegar a un punto
-        if (Vector3.Distance(transform.position, target.position) < 0.1f)
+        // Cambiar de dirección al llegar a un punto (solo verifica la distancia en el eje X)
+        if (Mathf.Abs(transform.position.x - target.position.x) < 0.5f)
         {
             target = (target == pointA) ? pointB : pointA;
             Flip();
@@ -58,7 +58,7 @@ public class DogLogic : MonoBehaviour
 
     void Jump()
     {
-        body.linearVelocity = new Vector2(body.linearVelocityX, 5f); // 5 es la fuerza del salto, ajusta según lo necesites
+        body.linearVelocity = new Vector2(body.linearVelocityX, 5f); // Mantener la velocidad horizontal y solo modificar la vertical
     }
 
     public void TakeDamage(int damage)
