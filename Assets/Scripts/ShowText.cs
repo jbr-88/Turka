@@ -2,23 +2,23 @@ using UnityEngine;
 
 public class Show2DText : MonoBehaviour
 {
-    public GameObject textObject; // Asigna aquí el objeto de texto
+    public GameObject textObject;
 
     private void Start()
     {
         if (textObject != null)
         {
-            textObject.SetActive(false); // Oculta el texto al inicio
+            textObject.SetActive(false);
         }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player")) // Asegúrate de que el jugador tenga la etiqueta "Player"
+        if (other.CompareTag("Player"))
         {
             if (textObject != null)
             {
-                textObject.SetActive(true); // Muestra el texto
+                textObject.SetActive(true);
             }
         }
     }
@@ -29,7 +29,7 @@ public class Show2DText : MonoBehaviour
         {
             if (textObject != null)
             {
-                textObject.SetActive(false); // Oculta el texto cuando el jugador se aleja
+                textObject.SetActive(false);
             }
         }
     }

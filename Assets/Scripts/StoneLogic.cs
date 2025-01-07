@@ -36,38 +36,38 @@ public class StoneLogic : MonoBehaviour
         {
             canPickUp = true;
             holder = collision.transform;
-            Debug.Log("Piedra en rango para recoger");
+            //Debug.Log("Piedra en rango para recoger");
         }
 
-        Debug.Log($"Piedra impactó con trigger de: {collision.gameObject.name}");
+        //Debug.Log($"Piedra impactó con trigger de: {collision.gameObject.name}");
 
-    var antEnemy = collision.gameObject.GetComponent<AntLogic>();
-    var eagleEnemy = collision.gameObject.GetComponent<EagleLogic>();
-    var dogEnemy = collision.gameObject.GetComponent<DogLogic>();
+        var antEnemy = collision.gameObject.GetComponent<AntLogic>();
+        var eagleEnemy = collision.gameObject.GetComponent<EagleLogic>();
+        var dogEnemy = collision.gameObject.GetComponent<DogLogic>();
 
-    if (antEnemy != null)
-    {
-        Debug.Log("Impactó con hormiga");
-        antEnemy.TakeDamage(1);
-        DestroyStone();
-        return;
-    }
-    else if (eagleEnemy != null)
-    {
-        Debug.Log("Impactó con águila");
-        eagleEnemy.TakeDamage(1);
-        DestroyStone();
-        return;
-    }
-    else if (dogEnemy != null)
-    {
-        Debug.Log("Impactó con perro");
-        dogEnemy.TakeDamage(1);
-        DestroyStone();
-        return;
-    }
+        if (antEnemy != null)
+        {
+            //Debug.Log("Impactó con hormiga");
+            antEnemy.TakeDamage(1);
+            DestroyStone();
+            return;
+        }
+        else if (eagleEnemy != null)
+        {
+            //Debug.Log("Impactó con águila");
+            eagleEnemy.TakeDamage(1);
+            DestroyStone();
+            return;
+        }
+        else if (dogEnemy != null)
+        {
+            //Debug.Log("Impactó con perro");
+            dogEnemy.TakeDamage(1);
+            DestroyStone();
+            return;
+        }
 
-    Debug.Log("Impactó con un objeto que no es un enemigo.");
+        //Debug.Log("Impactó con un objeto que no es un enemigo.");
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -75,7 +75,7 @@ public class StoneLogic : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             canPickUp = false;
-            Debug.Log("Piedra fuera de rango");
+            //Debug.Log("Piedra fuera de rango");
         }
 
         
@@ -91,7 +91,7 @@ public class StoneLogic : MonoBehaviour
 
         rb.bodyType = RigidbodyType2D.Kinematic;
         rb.gravityScale = 0;
-        Debug.Log("Piedra recogida");
+        //Debug.Log("Piedra recogida");
     }
 
     public void Throw()
@@ -105,7 +105,7 @@ public class StoneLogic : MonoBehaviour
             rb.gravityScale = 1;
             rb.linearVelocity = Vector2.zero;
             rb.AddForce(throwDirection.normalized * throwForce, ForceMode2D.Impulse);
-            Debug.Log("Piedra lanzada");
+            //Debug.Log("Piedra lanzada");
 
             Invoke(nameof(DestroyStone), 3f);
         }
@@ -136,12 +136,12 @@ public class StoneLogic : MonoBehaviour
             return;
         }
 
-        Debug.Log("La piedra impactó con un objeto que no es un enemigo.");
+        //Debug.Log("La piedra impactó con un objeto que no es un enemigo.");
     }
 
     private void DestroyStone()
     {
-        Debug.Log("Piedra destruida automáticamente");
+        //Debug.Log("Piedra destruida automáticamente");
         Destroy(gameObject);
     }
 }

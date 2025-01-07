@@ -7,22 +7,18 @@ public class AntLogic : MonoBehaviour
     public float velocity;
     public Transform pointA;
     public Transform pointB;
-    public int health = 1; // Número de impactos necesarios para destruir (1 por defecto)
+    public int health = 1;
     
     private Rigidbody2D body;
     private Transform target;
 
     
-    
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
         target = pointA;
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         Vector2 direction = (target.position - transform.position).normalized;
@@ -33,12 +29,12 @@ public class AntLogic : MonoBehaviour
             if (target == pointA)
             {
                 target = pointB;
-                Flip(); // Girar el sprite
+                Flip();
             }
             else
             {
                 target = pointA;
-                Flip(); // Girar el sprite
+                Flip();
             }
         }
     }
@@ -52,13 +48,13 @@ public class AntLogic : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        health -= damage; // Reduce la vida
-        Debug.Log($"{gameObject.name} recibió daño. Vida restante: {health}");
+        health -= damage;
+        //Debug.Log($"{gameObject.name} recibió daño. Vida restante: {health}");
 
         if (health <= 0)
         {
-            Destroy(gameObject); // Destruye el enemigo si su vida llega a 0
-            Debug.Log($"{gameObject.name} destruido");
+            Destroy(gameObject);
+            //Debug.Log($"{gameObject.name} destruido");
         }
     }
 }

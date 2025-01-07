@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections;
-using UnityEditor.Tilemaps;
+//using UnityEditor.Tilemaps;
 using UnityEngine.SceneManagement;
 using System;
 
@@ -24,6 +24,7 @@ public class PlayerInput : MonoBehaviour
     private bool facingRight;
     private Animator anim;
     private StoneLogic heldStone;
+    
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
@@ -66,7 +67,7 @@ public class PlayerInput : MonoBehaviour
          if (Input.GetKeyDown(KeyCode.D) && heldStone != null)
         {
             heldStone.Throw();
-            heldStone = null; // Liberar referencia
+            heldStone = null;
         }
     }
 
@@ -100,9 +101,9 @@ public class PlayerInput : MonoBehaviour
             SceneManager.LoadScene(currentSceneIndex + 1);
         }
 
-if (collision.gameObject.tag == "finalBoss")
+        if (collision.gameObject.tag == "finalBoss")
         {
-            Debug.Log("El jugador fue impactado por un enemigo.");
+            //Debug.Log("El jugador fue impactado por un enemigo.");
             gameOver = true;
             body.constraints = RigidbodyConstraints2D.FreezeAll;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
@@ -120,7 +121,6 @@ if (collision.gameObject.tag == "finalBoss")
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        // Detecta si el jugador puede recoger la piedra
         if (collision.CompareTag("ThrowableStone") && Input.GetKeyDown(KeyCode.X))
         {
             heldStone = collision.GetComponent<StoneLogic>();
@@ -128,17 +128,17 @@ if (collision.gameObject.tag == "finalBoss")
 
         if (collision.CompareTag("enemy") || collision.CompareTag("finalBoss"))
         {
-            Debug.Log("El jugador fue impactado por un enemigo.");
+            //Debug.Log("El jugador fue impactado por un enemigo.");
             gameOver = true;
             body.constraints = RigidbodyConstraints2D.FreezeAll;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 
-        public void Rebound(float reboundForce)
-{
-    Rigidbody2D body = GetComponent<Rigidbody2D>();
-    body.AddForce(Vector2.up * reboundForce, ForceMode2D.Impulse);
-}
+    public void Rebound(float reboundForce)
+    {
+        Rigidbody2D body = GetComponent<Rigidbody2D>();
+        body.AddForce(Vector2.up * reboundForce, ForceMode2D.Impulse);
+    }
 
 }

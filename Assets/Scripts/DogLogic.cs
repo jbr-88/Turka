@@ -24,18 +24,15 @@ public class DogLogic : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Movimiento del enemigo con velocidad constante
         float moveDirection = Mathf.Sign(target.position.x - transform.position.x);
         body.linearVelocity = new Vector2(moveDirection * velocity, body.linearVelocityY);
 
-        // Cambiar de dirección al llegar a un punto (umbral aumentado a 0.7f)
         if (Mathf.Abs(transform.position.x - target.position.x) < 0.7f)
         {
             target = (target == pointA) ? pointB : pointA;
             Flip();
         }
 
-        // Control de salto
         jumpTimer += Time.fixedDeltaTime;
         if (jumpTimer >= jumpInterval && IsGrounded())
         {
@@ -58,18 +55,18 @@ public class DogLogic : MonoBehaviour
 
     void Jump()
     {
-        body.linearVelocity = new Vector2(body.linearVelocityX, 5f); // Mantener la velocidad horizontal y solo modificar la vertical
+        body.linearVelocity = new Vector2(body.linearVelocityX, 5f);
     }
 
     public void TakeDamage(int damage)
     {
         health -= damage;
-        Debug.Log($"{gameObject.name} recibió daño. Vida restante: {health}");
+        //Debug.Log($"{gameObject.name} recibió daño. Vida restante: {health}");
 
         if (health <= 0)
         {
             Destroy(gameObject);
-            Debug.Log($"{gameObject.name} destruido");
+            //Debug.Log($"{gameObject.name} destruido");
         }
     }
 }

@@ -4,41 +4,39 @@ public class HitOnEnemyLogic : MonoBehaviour
 {
     [System.Obsolete]
     private void OnTriggerEnter2D(Collider2D collision)
-{
-    if (collision.CompareTag("enemy") || collision.CompareTag("finalBoss"))
     {
-        // Obtener el script del enemigo y restarle vida
-        AntLogic antLogic = collision.GetComponent<AntLogic>();
-        EagleLogic eagleLogic = collision.GetComponent<EagleLogic>();
-        DogLogic dogLogic = collision.GetComponent<DogLogic>();
+        if (collision.CompareTag("enemy") || collision.CompareTag("finalBoss"))
+        {
+            AntLogic antLogic = collision.GetComponent<AntLogic>();
+            EagleLogic eagleLogic = collision.GetComponent<EagleLogic>();
+            DogLogic dogLogic = collision.GetComponent<DogLogic>();
 
-        if (antLogic != null)
-        {
-            antLogic.TakeDamage(1); // Resta 1 de vida al enemigo
-        }
-        else if (eagleLogic != null)
-        {
-            eagleLogic.TakeDamage(1); // Resta 1 de vida al enemigo
-        }
-        else if (dogLogic != null)
-        {
-            dogLogic.TakeDamage(1); // Resta 1 de vida al enemigo
-        }
+            if (antLogic != null)
+            {
+                antLogic.TakeDamage(1);
+            }
+            else if (eagleLogic != null)
+            {
+                eagleLogic.TakeDamage(1);
+            }
+            else if (dogLogic != null)
+            {
+                dogLogic.TakeDamage(1);
+            }
 
-        // Buscar al jugador y aplicar el rebote
-        PlayerInput player = FindObjectOfType<PlayerInput>();
-        if (player != null)
-        {
-            player.Rebound(10f); // Llama al método de rebote del jugador con una fuerza de 5
+            PlayerInput player = FindObjectOfType<PlayerInput>();
+            if (player != null)
+            {
+                player.Rebound(10f);
+            }
         }
     }
-}
 
 
     public void Rebound(float reboundForce)
-{
-    Rigidbody2D body = GetComponent<Rigidbody2D>();
-    body.AddForce(Vector2.up * reboundForce, ForceMode2D.Impulse);
-}
+    {
+        Rigidbody2D body = GetComponent<Rigidbody2D>();
+        body.AddForce(Vector2.up * reboundForce, ForceMode2D.Impulse);
+    }
 
 }
